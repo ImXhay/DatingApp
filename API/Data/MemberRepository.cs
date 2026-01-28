@@ -7,24 +7,36 @@ namespace API.Data;
 
 public class MemberRepository(AppDbContext context) : IMemberRepository
 {
-    public async Task<IReadOnlyList<Members>> GetMembersAsyn()
+    public async Task<Members?> GetMemberForUpdate(string id)
     {
         return await context.Members
-        .Include(x => x.Photos)
-        .ToListAsync();
+            .Include(x => x.User)
+            .SingleOrDefaultAsync(x => x.Id == id); 
+    }
+
+   
+    public async Task<IReadOnlyList<Members>> GetMembersAsync()
+    {
+        return await context.Members
+            .Include(x => x.Photos)
+            .ToListAsync();
     }
 
     public async Task<Members?> GetMembersByIdAsync(string id)
     {
-        return await context.Members.FindAsync(id);
+
+        return await context.Members
+            .Include(x => x.User)
+            .Include(x => x.Photos)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IReadOnlyList<Photo>> GetPhotosForMembersAsync(string memberId)
     {
         return await context.Members
-        .Where(x => x.Id == memberId)
-        .SelectMany(x => x.Photos)
-        .ToListAsync();
+            .Where(x => x.Id == memberId)
+            .SelectMany(x => x.Photos)
+            .ToListAsync();
     }
 
     public async Task<bool> SaveAllAsync()

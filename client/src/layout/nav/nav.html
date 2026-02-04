@@ -19,13 +19,14 @@
     </a>
     <nav class="flex gap-4 my-2 uppercase text-sm text-gray-200 font-semibold dark:text-gray-600e">
       @if (accountService.currentUser()) {
-        <a routerLink="/lists" routerLinkActive="text-accent">List</a>
+        
         <a
           routerLink="/members"
           [routerLinkActiveOptions]="{ exact: true }"
           routerLinkActive="text-accent"
           >Matches</a
         >
+        <a routerLink="/lists" routerLinkActive="text-accent">List</a>
         <a routerLink="/messages" routerLinkActive="text-accent">Messages</a>
       }
       <a routerLink="/test-errors" routerLinkActive="text-accent">Errors</a>

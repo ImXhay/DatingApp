@@ -1,11 +1,13 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 using API.Data;
+using API.Helpers;
 using API.Interface;
 using API.Interfaces;
 using API.Middleware;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Build.Graph;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -23,13 +25,15 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 builder.Services.AddCors();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(Options =>
+        .AddJwtBearer(options =>
         {
            var tokenKey = builder.Configuration["TokenKey"]
                 ?? throw new Exception("token key not found -program.cs");
-          Options.TokenValidationParameters = new TokenValidationParameters
+          options.TokenValidationParameters = new TokenValidationParameters
           {
               ValidateIssuerSigningKey = true,
               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),    

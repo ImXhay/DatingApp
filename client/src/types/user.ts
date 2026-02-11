@@ -12,8 +12,13 @@ export type LoginCreds = {
 }
 
 export type RegistrCreds = {
-    subscribe: any;
+
     email: string;
     displayName: string;
     password: string;
+    gender: string;
+    dateOfBirth: string;
+    city: string;
+    country: string;
+
 }

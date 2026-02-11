@@ -4,11 +4,6 @@ using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using API.Extensions;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Identity;
-using SQLitePCL;
-using System.Reflection.Metadata.Ecma335;
-using System.Net.NetworkInformation;
 
 namespace API.Controllers
 {

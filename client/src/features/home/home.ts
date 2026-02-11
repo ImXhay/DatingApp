@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, signal, TestabilityRegistry } from '@angular/core';
 import { Register } from "../account/register/register";
 import { User } from '../../types/user';
 
@@ -10,7 +10,7 @@ import { User } from '../../types/user';
 })
 export class Home {
 
-  protected registerMode = signal(false);
+  protected registerMode = signal(true);
 
   showRegister( value: boolean ){
     this.registerMode.set(value);

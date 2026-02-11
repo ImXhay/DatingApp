@@ -1,10 +1,10 @@
 @if (memberService.member(); as member) {
   <div class="flex flex-col gap-3">
-    <div class="felx gap-4-">
+    <div class="flex gap-4-">
       <span class="font-bold">Member since: </span>
       <span> {{ member.created | date: 'longDate' }}</span>
     </div>
-    <div class="felx gap-4-">
+    <div class="flex gap-4-">
       <span class="font-semibold">Last Active: </span>
       <span> {{ member.lastActive | date: 'dd/MM/yyyy, h:mm a' }}</span>
     </div>

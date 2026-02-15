@@ -4,6 +4,7 @@ using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using API.Extensions;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -12,9 +13,11 @@ namespace API.Controllers
     {
         [HttpGet]
 
-        public async Task<ActionResult<IReadOnlyList<Members>>> GetMembers()
+        public async Task<ActionResult<IReadOnlyList<Members>>> GetMembers([FromQuery] MemberParms memberParms)
         {
-            return Ok(await memberRepository.GetMembersAsync());
+            memberParms.CurrentMemberId = User.GetMemberId();
+
+            return Ok(await memberRepository.GetMembersAsync(memberParms));
         }
 
 
@@ -125,7 +128,7 @@ namespace API.Controllers
             if (photo.PublicId != null)
             {
                 var result = await photoService.DeletPhotAsync(photo.PublicId);
-                if(result.Error != null) return BadRequest(result.Error.Message);
+                if (result.Error != null) return BadRequest(result.Error.Message);
             }
 
             member.Photos.Remove(photo);
@@ -136,4 +139,4 @@ namespace API.Controllers
 
         }
     }
-} 
+}

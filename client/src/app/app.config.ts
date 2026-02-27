@@ -21,8 +21,7 @@ export const appConfig: ApplicationConfig = {
         //fake delay
         setTimeout(async() => { 
            try {
-        return lastValueFrom(initService.init());
-        
+          await lastValueFrom(initService.init());
       } finally {
         const splash = document.getElementById('initial-splash');
         if (splash){
